@@ -4,17 +4,17 @@ import { useApp, getGrade, getGradeColor } from '../context/AppContext'
 // Tailwind classes for each submission status
 const STATUS_STYLE = {
   submitted: {
-    row: 'bg-green-50 border-green-200',
+    row: 'bg-emerald-500/10 border-emerald-500/30',
     btn: 'bg-green-500 text-white border-green-500',
     badge: 'bg-green-100 text-green-700',
   },
   late: {
-    row: 'bg-yellow-50 border-yellow-200',
+    row: 'bg-yellow-500/10 border-yellow-500/30',
     btn: 'bg-yellow-500 text-white border-yellow-500',
     badge: 'bg-yellow-100 text-yellow-700',
   },
   missing: {
-    row: 'bg-red-50 border-red-200',
+    row: 'bg-red-500/10 border-red-500/30',
     btn: 'bg-red-500 text-white border-red-500',
     badge: 'bg-red-100 text-red-700',
   },
@@ -132,8 +132,8 @@ export default function Assignments() {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold text-gray-800 mb-1">Assignments</h1>
-      <p className="text-gray-500 mb-8">Track assignment submissions and scores</p>
+      <h1 className="emi-title text-3xl md:text-4xl mb-1">Assignments</h1>
+      <p className="text-slate-400 mb-8">Track assignment submissions and scores</p>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
@@ -141,40 +141,40 @@ export default function Assignments() {
         <div className="lg:col-span-1 space-y-5">
 
           {/* Add assignment form */}
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
-            <h2 className="font-semibold text-gray-700 mb-4">Add Assignment</h2>
+          <div className="emi-card p-5">
+            <h2 className="font-semibold text-slate-200 mb-4">Add Assignment</h2>
             <form onSubmit={handleAddAssignment} className="space-y-3">
 
               <div>
-                <label className="text-xs font-medium text-gray-500">Assignment Name</label>
+                <label className="text-xs font-medium text-slate-400">Assignment Name</label>
                 <input
                   type="text"
                   placeholder="e.g. Essay #1"
                   value={form.name}
                   onChange={e => { setForm(f => ({ ...f, name: e.target.value })); setFormError('') }}
-                  className="mt-1 w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300"
+                  className="mt-1 w-full border border-white/15 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-white/30"
                 />
               </div>
 
               <div>
-                <label className="text-xs font-medium text-gray-500">Due Date</label>
+                <label className="text-xs font-medium text-slate-400">Due Date</label>
                 <input
                   type="date"
                   value={form.dueDate}
                   onChange={e => setForm(f => ({ ...f, dueDate: e.target.value }))}
-                  className="mt-1 w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300"
+                  className="mt-1 w-full border border-white/15 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-white/30"
                 />
               </div>
 
               <div>
-                <label className="text-xs font-medium text-gray-500">Total Marks</label>
+                <label className="text-xs font-medium text-slate-400">Total Marks</label>
                 <input
                   type="number"
                   placeholder="50"
                   min="1"
                   value={form.totalMarks}
                   onChange={e => setForm(f => ({ ...f, totalMarks: e.target.value }))}
-                  className="mt-1 w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300"
+                  className="mt-1 w-full border border-white/15 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-white/30"
                 />
               </div>
 
@@ -182,7 +182,7 @@ export default function Assignments() {
 
               <button
                 type="submit"
-                className="w-full bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-indigo-700 transition"
+                className="w-full bg-white text-slate-900 px-4 py-2 rounded-lg text-sm font-medium hover:bg-slate-200 transition"
               >
                 Add Assignment
               </button>
@@ -190,13 +190,13 @@ export default function Assignments() {
           </div>
 
           {/* Assignment list */}
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
-            <h2 className="font-semibold text-gray-700 mb-4">
-              Assignments <span className="text-gray-400 font-normal text-sm">({assignments.length})</span>
+          <div className="emi-card p-5">
+            <h2 className="font-semibold text-slate-200 mb-4">
+              Assignments <span className="text-slate-500 font-normal text-sm">({assignments.length})</span>
             </h2>
 
             {assignments.length === 0 ? (
-              <p className="text-gray-400 text-sm">No assignments yet.</p>
+              <p className="text-slate-500 text-sm">No assignments yet.</p>
             ) : (
               <div className="space-y-2">
                 {[...assignments].sort((a, b) => b.dueDate.localeCompare(a.dueDate)).map(a => {
@@ -212,17 +212,17 @@ export default function Assignments() {
                       onClick={() => selectAssignment(a.id)}
                       className={`cursor-pointer rounded-lg px-4 py-3 border transition ${
                         selectedId === a.id
-                          ? 'border-indigo-400 bg-indigo-50'
-                          : 'border-gray-200 bg-gray-50 hover:border-indigo-300 hover:bg-indigo-50'
+                          ? 'border-white/40 bg-white/10'
+                          : 'border-white/10 bg-white/5 hover:border-white/30 hover:bg-white/10'
                       }`}
                     >
                       <div className="flex items-start justify-between gap-2">
                         <div>
-                          <div className="text-sm font-medium text-gray-800">{a.name}</div>
-                          <div className="text-xs text-gray-400 mt-0.5">
+                          <div className="text-sm font-medium text-slate-100">{a.name}</div>
+                          <div className="text-xs text-slate-500 mt-0.5">
                             Due: {a.dueDate} · {a.totalMarks} marks
                           </div>
-                          <div className="text-xs text-gray-400">
+                          <div className="text-xs text-slate-500">
                             {submittedCount}/{students.length} submitted
                           </div>
                         </div>
@@ -245,18 +245,18 @@ export default function Assignments() {
         {/* ── Right column: submission entry ─────────────────────────────────── */}
         <div className="lg:col-span-2">
           {!selectedAssignment ? (
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-10 text-center h-48 flex flex-col items-center justify-center">
-              <p className="text-gray-500 text-sm">
+            <div className="emi-card p-10 text-center h-48 flex flex-col items-center justify-center">
+              <p className="text-slate-400 text-sm">
                 Select an assignment to track submissions.
               </p>
             </div>
           ) : (
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
+            <div className="emi-card p-5">
 
               {/* Assignment header */}
               <div className="mb-5">
-                <h2 className="text-lg font-bold text-gray-800">{selectedAssignment.name}</h2>
-                <p className="text-sm text-gray-500 mt-1">
+                <h2 className="text-lg font-bold text-slate-100">{selectedAssignment.name}</h2>
+                <p className="text-sm text-slate-400 mt-1">
                   Due: {selectedAssignment.dueDate} · {selectedAssignment.totalMarks} marks
                 </p>
               </div>
@@ -271,12 +271,12 @@ export default function Assignments() {
               )}
 
               {students.length === 0 ? (
-                <p className="text-gray-400 text-sm">
+                <p className="text-slate-500 text-sm">
                   No students yet. Go to the Attendance page to add students.
                 </p>
               ) : (
                 <>
-                  <p className="text-xs text-gray-500 mb-3">
+                  <p className="text-xs text-slate-400 mb-3">
                     Click a status button to set it, then enter a score (not required for Missing).
                   </p>
 
@@ -298,11 +298,11 @@ export default function Assignments() {
                         <div
                           key={student.id}
                           className={`flex flex-wrap items-center gap-3 rounded-lg px-4 py-3 border transition ${
-                            style ? style.row : 'bg-gray-50 border-gray-200'
+                            style ? style.row : 'bg-white/5 border-white/10'
                           }`}
                         >
                           {/* Name */}
-                          <span className="w-28 text-sm font-medium text-gray-700 truncate flex-shrink-0">
+                          <span className="w-28 text-sm font-medium text-slate-200 truncate flex-shrink-0">
                             {student.name}
                           </span>
 
@@ -315,7 +315,7 @@ export default function Assignments() {
                                 className={`px-2.5 py-1 rounded-lg text-xs font-semibold border transition capitalize ${
                                   data.status === s
                                     ? STATUS_STYLE[s].btn
-                                    : 'bg-white text-gray-600 border-gray-300 hover:border-gray-400'
+                                    : 'bg-white/5 text-slate-300 border-white/15 hover:border-white/30'
                                 }`}
                               >
                                 {s}
@@ -333,13 +333,13 @@ export default function Assignments() {
                                 placeholder="Score"
                                 value={data.score}
                                 onChange={e => setScore(student.id, e.target.value)}
-                                className={`w-20 border rounded-lg px-2.5 py-1.5 text-xs bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-300 ${
+                                className={`w-20 border rounded-lg px-2.5 py-1.5 text-xs bg-white/5 text-slate-100 focus:outline-none focus:ring-2 focus:ring-white/30 ${
                                   data.score !== '' && !inRange
                                     ? 'border-red-400'
-                                    : 'border-gray-300'
+                                    : 'border-white/15'
                                 }`}
                               />
-                              <span className="text-xs text-gray-500">
+                              <span className="text-xs text-slate-400">
                                 / {selectedAssignment.totalMarks}
                               </span>
 
@@ -366,7 +366,7 @@ export default function Assignments() {
                   <div className="flex items-center gap-4">
                     <button
                       onClick={handleSave}
-                      className="bg-indigo-600 text-white px-6 py-2 rounded-lg text-sm font-medium hover:bg-indigo-700 transition"
+                      className="bg-white text-slate-900 px-6 py-2 rounded-lg text-sm font-medium hover:bg-slate-200 transition"
                     >
                       Save Submissions
                     </button>
@@ -388,9 +388,9 @@ export default function Assignments() {
 
 function SummaryCard({ color, value, label }) {
   const styles = {
-    green: 'bg-green-50 border-green-200 text-green-700',
-    yellow: 'bg-yellow-50 border-yellow-200 text-yellow-700',
-    red: 'bg-red-50 border-red-200 text-red-700',
+    green: 'bg-emerald-500/10 border-emerald-500/20 text-emerald-300',
+    yellow: 'bg-yellow-500/10 border-yellow-500/20 text-yellow-300',
+    red: 'bg-red-500/10 border-red-500/20 text-red-300',
   }
   return (
     <div className={`border rounded-lg p-3 text-center ${styles[color]}`}>

@@ -1,3 +1,59 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply font-sans text-slate-200;
+    /* EMI flyer colour blend: deep navy fading into near-black */
+    background-color: #05070b;
+    background-image:
+      radial-gradient(120% 80% at 85% 0%, rgba(40, 70, 120, 0.35) 0%, transparent 55%),
+      radial-gradient(100% 90% at 0% 0%, rgba(20, 36, 58, 0.55) 0%, transparent 50%),
+      linear-gradient(160deg, #0d1b2a 0%, #0a0f1a 45%, #05070b 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+  }
+
+  /* Headings use the bold grotesque from the flyer */
+  h1, h2, h3 {
+    @apply font-display;
+  }
+
+  /* Dark form controls so inputs/selects/date pickers match the theme */
+  input,
+  select,
+  textarea {
+    @apply bg-white/5 text-slate-100 placeholder-slate-500;
+    color-scheme: dark;
+  }
+
+  select option {
+    @apply bg-emi-navy text-slate-100;
+  }
+}
+
+@layer components {
+  /* Glassy card — replaces the old white card */
+  .emi-card {
+    @apply rounded-xl border border-white/10 bg-white/[0.04] shadow-xl shadow-black/30
+           backdrop-blur-sm;
+  }
+
+  /* Big section / page title in the flyer style */
+  .emi-title {
+    @apply font-display font-extrabold uppercase tracking-tight text-slate-50;
+  }
+
+  /* White pill primary button (like "SCAN QR CODE" on the flyer) */
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-full bg-white px-6 py-2.5
+           text-sm font-semibold text-slate-900 transition
+           hover:bg-slate-200 active:scale-[0.98];
+  }
+}

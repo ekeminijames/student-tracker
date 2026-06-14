@@ -68,8 +68,8 @@ export default function Attendance() {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold text-gray-800 mb-1">Attendance Tracker</h1>
-      <p className="text-gray-500 mb-8">Add students and record daily attendance</p>
+      <h1 className="emi-title text-3xl md:text-4xl mb-1">Attendance Tracker</h1>
+      <p className="text-slate-400 mb-8">Add students and record daily attendance</p>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
@@ -77,20 +77,20 @@ export default function Attendance() {
         <div className="lg:col-span-1 space-y-5">
 
           {/* Add student form */}
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
-            <h2 className="font-semibold text-gray-700 mb-4">Add Student</h2>
+          <div className="emi-card p-5">
+            <h2 className="font-semibold text-slate-200 mb-4">Add Student</h2>
             <form onSubmit={handleAddStudent} className="flex flex-col gap-3">
               <input
                 type="text"
                 placeholder="Full name..."
                 value={newName}
                 onChange={e => { setNewName(e.target.value); setAddError('') }}
-                className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300"
+                className="border border-white/15 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-white/30"
               />
               {addError && <p className="text-red-500 text-xs">{addError}</p>}
               <button
                 type="submit"
-                className="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-indigo-700 transition"
+                className="bg-white text-slate-900 px-4 py-2 rounded-lg text-sm font-medium hover:bg-slate-200 transition"
               >
                 Add Student
               </button>
@@ -98,13 +98,13 @@ export default function Attendance() {
           </div>
 
           {/* Student list with overall attendance percentages */}
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
-            <h2 className="font-semibold text-gray-700 mb-3">
-              All Students <span className="text-gray-400 font-normal text-sm">({students.length})</span>
+          <div className="emi-card p-5">
+            <h2 className="font-semibold text-slate-200 mb-3">
+              All Students <span className="text-slate-500 font-normal text-sm">({students.length})</span>
             </h2>
 
             {students.length === 0 ? (
-              <p className="text-gray-400 text-sm">No students added yet.</p>
+              <p className="text-slate-500 text-sm">No students added yet.</p>
             ) : (
               <ul className="space-y-2">
                 {students.map(s => {
@@ -112,11 +112,11 @@ export default function Attendance() {
                   return (
                     <li
                       key={s.id}
-                      className="flex items-center justify-between bg-gray-50 rounded-lg px-3 py-2.5"
+                      className="flex items-center justify-between bg-white/5 rounded-lg px-3 py-2.5"
                     >
                       <div>
-                        <div className="text-sm font-medium text-gray-700">{s.name}</div>
-                        <div className="text-xs text-gray-400 mt-0.5">
+                        <div className="text-sm font-medium text-slate-200">{s.name}</div>
+                        <div className="text-xs text-slate-500 mt-0.5">
                           {att.percentage !== null
                             ? `${att.percentage}% attendance (${att.present}/${att.total} days)`
                             : 'No records yet'}
@@ -141,22 +141,22 @@ export default function Attendance() {
         <div className="lg:col-span-2 space-y-6">
 
           {/* Mark attendance for a specific date */}
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
+          <div className="emi-card p-5">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-5">
-              <h2 className="font-semibold text-gray-700">Mark Attendance</h2>
+              <h2 className="font-semibold text-slate-200">Mark Attendance</h2>
               <div className="flex items-center gap-2">
-                <label className="text-sm text-gray-500">Date:</label>
+                <label className="text-sm text-slate-400">Date:</label>
                 <input
                   type="date"
                   value={selectedDate}
                   onChange={e => setSelectedDate(e.target.value)}
-                  className="border border-gray-300 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300"
+                  className="border border-white/15 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-white/30"
                 />
               </div>
             </div>
 
             {students.length === 0 ? (
-              <p className="text-gray-400 text-sm">Add students first to mark attendance.</p>
+              <p className="text-slate-500 text-sm">Add students first to mark attendance.</p>
             ) : (
               <>
                 {/* Bulk actions */}
@@ -188,7 +188,7 @@ export default function Attendance() {
                     return (
                       <div
                         key={student.id}
-                        className="flex items-center justify-between bg-gray-50 rounded-lg px-4 py-3"
+                        className="flex items-center justify-between bg-white/5 rounded-lg px-4 py-3"
                       >
                         <div className="flex items-center gap-3">
                           {/* Coloured dot shows current status */}
@@ -201,7 +201,7 @@ export default function Attendance() {
                                 : 'bg-gray-300'
                             }`}
                           />
-                          <span className="text-sm font-medium text-gray-700">{student.name}</span>
+                          <span className="text-sm font-medium text-slate-200">{student.name}</span>
                         </div>
 
                         <div className="flex gap-2">
@@ -210,7 +210,7 @@ export default function Attendance() {
                             className={`px-3 py-1 rounded-lg text-xs font-semibold transition ${
                               status === 'present'
                                 ? 'bg-green-500 text-white'
-                                : 'bg-gray-200 text-gray-600 hover:bg-green-100 hover:text-green-700'
+                                : 'bg-white/10 text-slate-300 hover:bg-green-100 hover:text-green-700'
                             }`}
                           >
                             Present
@@ -220,7 +220,7 @@ export default function Attendance() {
                             className={`px-3 py-1 rounded-lg text-xs font-semibold transition ${
                               status === 'absent'
                                 ? 'bg-red-500 text-white'
-                                : 'bg-gray-200 text-gray-600 hover:bg-red-100 hover:text-red-700'
+                                : 'bg-white/10 text-slate-300 hover:bg-red-100 hover:text-red-700'
                             }`}
                           >
                             Absent
@@ -235,11 +235,11 @@ export default function Attendance() {
           </div>
 
           {/* Attendance history per student (accordion) */}
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
-            <h2 className="font-semibold text-gray-700 mb-4">Attendance History</h2>
+          <div className="emi-card p-5">
+            <h2 className="font-semibold text-slate-200 mb-4">Attendance History</h2>
 
             {students.length === 0 ? (
-              <p className="text-gray-400 text-sm">No students to show.</p>
+              <p className="text-slate-500 text-sm">No students to show.</p>
             ) : (
               <div className="space-y-2">
                 {students.map(student => {
@@ -249,15 +249,15 @@ export default function Attendance() {
                   return (
                     <div
                       key={student.id}
-                      className="border border-gray-200 rounded-lg overflow-hidden"
+                      className="border border-white/10 rounded-lg overflow-hidden"
                     >
                       {/* Header row – click to toggle */}
                       <button
                         onClick={() => setExpandedId(isOpen ? null : student.id)}
-                        className="w-full flex items-center justify-between px-4 py-3 bg-gray-50 hover:bg-gray-100 transition text-left"
+                        className="w-full flex items-center justify-between px-4 py-3 bg-white/5 hover:bg-white/10 transition text-left"
                       >
                         <div className="flex items-center gap-3 flex-wrap">
-                          <span className="text-sm font-medium text-gray-700">{student.name}</span>
+                          <span className="text-sm font-medium text-slate-200">{student.name}</span>
 
                           {/* Attendance percentage badge */}
                           {att.percentage !== null && (
@@ -272,18 +272,18 @@ export default function Attendance() {
                             </span>
                           )}
 
-                          <span className="text-xs text-gray-400">
+                          <span className="text-xs text-slate-500">
                             {att.present} present / {att.total - att.present} absent
                           </span>
                         </div>
-                        <span className="text-gray-400 text-xs ml-2">{isOpen ? '−' : '+'}</span>
+                        <span className="text-slate-500 text-xs ml-2">{isOpen ? '−' : '+'}</span>
                       </button>
 
                       {/* Expanded: list every date record */}
                       {isOpen && (
                         <div className="px-4 py-3 bg-white">
                           {att.records.length === 0 ? (
-                            <p className="text-gray-400 text-sm">No records yet.</p>
+                            <p className="text-slate-500 text-sm">No records yet.</p>
                           ) : (
                             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                               {/* Sort newest dates first */}

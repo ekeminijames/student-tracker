@@ -34,13 +34,13 @@ export default function Dashboard() {
   if (students.length === 0) {
     return (
       <div className="text-center py-20">
-        <h2 className="text-2xl font-bold text-gray-700 mb-2">No Students Yet</h2>
-        <p className="text-gray-500 mb-6">
+        <h2 className="emi-title text-2xl mb-2">No Students Yet</h2>
+        <p className="text-slate-400 mb-6">
           Start by adding students in the Attendance section.
         </p>
         <Link
           to="/attendance"
-          className="inline-block bg-indigo-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-indigo-700 transition"
+          className="inline-block bg-white text-slate-900 px-6 py-3 rounded-lg font-medium hover:bg-slate-200 transition"
         >
           Go to Attendance
         </Link>
@@ -52,8 +52,8 @@ export default function Dashboard() {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold text-gray-800 mb-1">Dashboard</h1>
-      <p className="text-gray-500 mb-8">Overview of all students at a glance</p>
+      <h1 className="emi-title text-3xl md:text-4xl mb-1">Dashboard</h1>
+      <p className="text-slate-400 mb-8">Overview of all students at a glance</p>
 
       {/* Summary stat cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
@@ -63,25 +63,25 @@ export default function Dashboard() {
       </div>
 
       {/* Student overview table */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-x-auto">
+      <div className="emi-card overflow-x-auto">
         <table className="w-full text-sm">
-          <thead className="bg-gray-50 border-b border-gray-200">
+          <thead className="bg-white/5 border-b border-white/10">
             <tr>
-              <th className="text-left px-6 py-3 font-semibold text-gray-600">Student</th>
-              <th className="text-center px-4 py-3 font-semibold text-gray-600">Attendance</th>
-              <th className="text-center px-4 py-3 font-semibold text-gray-600">Avg Mark</th>
-              <th className="text-center px-4 py-3 font-semibold text-gray-600">Assignments</th>
-              <th className="text-center px-4 py-3 font-semibold text-gray-600">Status</th>
+              <th className="text-left px-6 py-3 font-semibold text-slate-300">Student</th>
+              <th className="text-center px-4 py-3 font-semibold text-slate-300">Attendance</th>
+              <th className="text-center px-4 py-3 font-semibold text-slate-300">Avg Mark</th>
+              <th className="text-center px-4 py-3 font-semibold text-slate-300">Assignments</th>
+              <th className="text-center px-4 py-3 font-semibold text-slate-300">Status</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-100">
+          <tbody className="divide-y divide-white/10">
             {rows.map(({ student, att, avgPct, subs, atRisk, lowAttendance, failing }) => (
-              <tr key={student.id} className={atRisk ? 'bg-red-50' : ''}>
+              <tr key={student.id} className={atRisk ? 'bg-red-500/10' : ''}>
 
                 {/* Name with avatar initial */}
-                <td className="px-6 py-4 font-medium text-gray-800">
+                <td className="px-6 py-4 font-medium text-slate-100">
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold text-sm flex-shrink-0">
+                    <div className="w-8 h-8 rounded-full bg-white/10 text-white flex items-center justify-center font-bold text-sm flex-shrink-0">
                       {student.name[0].toUpperCase()}
                     </div>
                     {student.name}
@@ -95,7 +95,7 @@ export default function Dashboard() {
                       {att.percentage}%
                     </span>
                   ) : (
-                    <span className="text-gray-400">—</span>
+                    <span className="text-slate-500">—</span>
                   )}
                 </td>
 
@@ -109,19 +109,19 @@ export default function Dashboard() {
                       </span>
                     </span>
                   ) : (
-                    <span className="text-gray-400">—</span>
+                    <span className="text-slate-500">—</span>
                   )}
                 </td>
 
                 {/* Assignments submitted out of total */}
                 <td className="px-4 py-4 text-center">
                   {subs.total > 0 ? (
-                    <span className="text-gray-700">
+                    <span className="text-slate-200">
                       {subs.submitted}
-                      <span className="text-gray-400">/{subs.total}</span>
+                      <span className="text-slate-500">/{subs.total}</span>
                     </span>
                   ) : (
-                    <span className="text-gray-400">—</span>
+                    <span className="text-slate-500">—</span>
                   )}
                 </td>
 
@@ -136,7 +136,7 @@ export default function Dashboard() {
                       On Track
                     </span>
                   ) : (
-                    <span className="inline-block bg-gray-100 text-gray-500 text-xs font-semibold px-2 py-1 rounded-full">
+                    <span className="inline-block bg-white/10 text-slate-400 text-xs font-semibold px-2 py-1 rounded-full">
                       No Data
                     </span>
                   )}
@@ -159,14 +159,14 @@ export default function Dashboard() {
 
 function StatCard({ color, value, label }) {
   const styles = {
-    indigo: 'bg-indigo-50 border-indigo-200 text-indigo-600',
-    red: 'bg-red-50 border-red-200 text-red-600',
-    green: 'bg-green-50 border-green-200 text-green-600',
+    indigo: 'bg-white/5 border-white/10 text-slate-50',
+    red: 'bg-red-500/10 border-red-500/20 text-red-300',
+    green: 'bg-emerald-500/10 border-emerald-500/20 text-emerald-300',
   }
   const labelStyles = {
-    indigo: 'text-indigo-700',
-    red: 'text-red-700',
-    green: 'text-green-700',
+    indigo: 'text-slate-400',
+    red: 'text-red-300',
+    green: 'text-emerald-300',
   }
 
   return (

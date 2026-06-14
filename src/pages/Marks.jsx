@@ -85,8 +85,8 @@ export default function Marks() {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold text-gray-800 mb-1">Tests & Exams</h1>
-      <p className="text-gray-500 mb-8">Record scores and auto-grade each student</p>
+      <h1 className="emi-title text-3xl md:text-4xl mb-1">Tests & Exams</h1>
+      <p className="text-slate-400 mb-8">Record scores and auto-grade each student</p>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
@@ -94,39 +94,39 @@ export default function Marks() {
         <div className="lg:col-span-1 space-y-5">
 
           {/* Add test form */}
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
-            <h2 className="font-semibold text-gray-700 mb-4">Add Test / Exam</h2>
+          <div className="emi-card p-5">
+            <h2 className="font-semibold text-slate-200 mb-4">Add Test / Exam</h2>
             <form onSubmit={handleAddTest} className="space-y-3">
 
               <div>
-                <label className="text-xs font-medium text-gray-500">Name</label>
+                <label className="text-xs font-medium text-slate-400">Name</label>
                 <input
                   type="text"
                   placeholder="e.g. Mid-term Exam"
                   value={form.name}
                   onChange={e => { setForm(f => ({ ...f, name: e.target.value })); setFormError('') }}
-                  className="mt-1 w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300"
+                  className="mt-1 w-full border border-white/15 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-white/30"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="text-xs font-medium text-gray-500">Total Marks</label>
+                  <label className="text-xs font-medium text-slate-400">Total Marks</label>
                   <input
                     type="number"
                     placeholder="100"
                     min="1"
                     value={form.totalMarks}
                     onChange={e => setForm(f => ({ ...f, totalMarks: e.target.value }))}
-                    className="mt-1 w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300"
+                    className="mt-1 w-full border border-white/15 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-white/30"
                   />
                 </div>
                 <div>
-                  <label className="text-xs font-medium text-gray-500">Type</label>
+                  <label className="text-xs font-medium text-slate-400">Type</label>
                   <select
                     value={form.type}
                     onChange={e => setForm(f => ({ ...f, type: e.target.value }))}
-                    className="mt-1 w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300"
+                    className="mt-1 w-full border border-white/15 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-white/30"
                   >
                     <option value="test">Test</option>
                     <option value="exam">Exam</option>
@@ -136,12 +136,12 @@ export default function Marks() {
               </div>
 
               <div>
-                <label className="text-xs font-medium text-gray-500">Date</label>
+                <label className="text-xs font-medium text-slate-400">Date</label>
                 <input
                   type="date"
                   value={form.date}
                   onChange={e => setForm(f => ({ ...f, date: e.target.value }))}
-                  className="mt-1 w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300"
+                  className="mt-1 w-full border border-white/15 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-white/30"
                 />
               </div>
 
@@ -149,7 +149,7 @@ export default function Marks() {
 
               <button
                 type="submit"
-                className="w-full bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-indigo-700 transition"
+                className="w-full bg-white text-slate-900 px-4 py-2 rounded-lg text-sm font-medium hover:bg-slate-200 transition"
               >
                 Add Test
               </button>
@@ -157,13 +157,13 @@ export default function Marks() {
           </div>
 
           {/* Tests list – click one to open score entry */}
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
-            <h2 className="font-semibold text-gray-700 mb-4">
-              Tests / Exams <span className="text-gray-400 font-normal text-sm">({tests.length})</span>
+          <div className="emi-card p-5">
+            <h2 className="font-semibold text-slate-200 mb-4">
+              Tests / Exams <span className="text-slate-500 font-normal text-sm">({tests.length})</span>
             </h2>
 
             {tests.length === 0 ? (
-              <p className="text-gray-400 text-sm">No tests added yet.</p>
+              <p className="text-slate-500 text-sm">No tests added yet.</p>
             ) : (
               <div className="space-y-2">
                 {[...tests].sort((a, b) => b.date.localeCompare(a.date)).map(test => (
@@ -172,14 +172,14 @@ export default function Marks() {
                     onClick={() => selectTest(test.id)}
                     className={`cursor-pointer rounded-lg px-4 py-3 border transition ${
                       selectedTestId === test.id
-                        ? 'border-indigo-400 bg-indigo-50'
-                        : 'border-gray-200 bg-gray-50 hover:border-indigo-300 hover:bg-indigo-50'
+                        ? 'border-white/40 bg-white/10'
+                        : 'border-white/10 bg-white/5 hover:border-white/30 hover:bg-white/10'
                     }`}
                   >
                     <div className="flex items-start justify-between gap-2">
                       <div>
-                        <div className="text-sm font-medium text-gray-800">{test.name}</div>
-                        <div className="text-xs text-gray-400 mt-0.5">
+                        <div className="text-sm font-medium text-slate-100">{test.name}</div>
+                        <div className="text-xs text-slate-500 mt-0.5">
                           {test.date} · {test.totalMarks} marks · <span className="capitalize">{test.type}</span>
                         </div>
                       </div>
@@ -201,17 +201,17 @@ export default function Marks() {
         {/* ── Right column: score entry ───────────────────────────────────────── */}
         <div className="lg:col-span-2">
           {!selectedTest ? (
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-10 text-center h-48 flex flex-col items-center justify-center">
-              <p className="text-gray-500 text-sm">Select a test from the list to enter scores.</p>
+            <div className="emi-card p-10 text-center h-48 flex flex-col items-center justify-center">
+              <p className="text-slate-400 text-sm">Select a test from the list to enter scores.</p>
             </div>
           ) : (
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
+            <div className="emi-card p-5">
 
               {/* Test header */}
               <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-6">
                 <div>
-                  <h2 className="text-lg font-bold text-gray-800">{selectedTest.name}</h2>
-                  <p className="text-sm text-gray-500 mt-1">
+                  <h2 className="text-lg font-bold text-slate-100">{selectedTest.name}</h2>
+                  <p className="text-sm text-slate-400 mt-1">
                     {selectedTest.date} · {selectedTest.totalMarks} marks ·{' '}
                     <span className="capitalize">{selectedTest.type}</span>
                   </p>
@@ -228,7 +228,7 @@ export default function Marks() {
               </div>
 
               {students.length === 0 ? (
-                <p className="text-gray-400 text-sm">
+                <p className="text-slate-500 text-sm">
                   No students yet. Go to the Attendance page to add students.
                 </p>
               ) : (
@@ -236,7 +236,7 @@ export default function Marks() {
                   {/* Grade key */}
                   <div className="flex gap-3 text-xs mb-4 flex-wrap">
                     {[['A', '90–100%'], ['B', '75–89%'], ['C', '60–74%'], ['D', '50–59%'], ['F', '<50%']].map(([g, range]) => (
-                      <span key={g} className="text-gray-600 bg-gray-50 border border-gray-200 px-2 py-0.5 rounded-full font-semibold">
+                      <span key={g} className="text-slate-300 bg-white/5 border border-white/10 px-2 py-0.5 rounded-full font-semibold">
                         <span className={getGradeColor(g)}>{g}</span>: {range}
                       </span>
                     ))}
@@ -254,10 +254,10 @@ export default function Marks() {
                       return (
                         <div
                           key={student.id}
-                          className="flex items-center gap-3 bg-gray-50 rounded-lg px-4 py-2.5 flex-wrap"
+                          className="flex items-center gap-3 bg-white/5 rounded-lg px-4 py-2.5 flex-wrap"
                         >
                           {/* Student name */}
-                          <div className="w-32 text-sm font-medium text-gray-700 truncate">
+                          <div className="w-32 text-sm font-medium text-slate-200 truncate">
                             {student.name}
                           </div>
 
@@ -271,18 +271,18 @@ export default function Marks() {
                             onChange={e =>
                               setDraftScores(prev => ({ ...prev, [student.id]: e.target.value }))
                             }
-                            className={`w-24 border rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300 ${
+                            className={`w-24 border rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-white/30 ${
                               raw !== '' && !inRange
                                 ? 'border-red-400 bg-red-50'
-                                : 'border-gray-300'
+                                : 'border-white/15'
                             }`}
                           />
-                          <span className="text-xs text-gray-400">/ {selectedTest.totalMarks}</span>
+                          <span className="text-xs text-slate-500">/ {selectedTest.totalMarks}</span>
 
                           {/* Percentage + auto grade (shown once input is valid) */}
                           {grade && (
                             <>
-                              <span className="text-xs text-gray-500">{pct}%</span>
+                              <span className="text-xs text-slate-400">{pct}%</span>
                               <span className={`font-bold text-sm ${getGradeColor(grade)}`}>
                                 {grade}
                               </span>
@@ -303,7 +303,7 @@ export default function Marks() {
                   <div className="flex items-center gap-4">
                     <button
                       onClick={handleSaveScores}
-                      className="bg-indigo-600 text-white px-6 py-2 rounded-lg text-sm font-medium hover:bg-indigo-700 transition"
+                      className="bg-white text-slate-900 px-6 py-2 rounded-lg text-sm font-medium hover:bg-slate-200 transition"
                     >
                       Save Scores
                     </button>
