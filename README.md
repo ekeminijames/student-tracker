@@ -8,18 +8,6 @@ A student tracking web app built with React + Vite + TailwindCSS.
 - **Assignments** – Track submission status (submitted / late / missing) with scores
 - **Dashboard** – At-a-glance overview, highlights students at risk
 
-## Setup
-
-You need [Node.js](https://nodejs.org) (v18 or later).
-
-```bash
-cd student-tracker
-npm install
-npm run dev
-```
-
-Then open http://localhost:5173 in your browser.
-
 ## Grading Scale
 | Grade | Percentage |
 |-------|-----------|
@@ -35,4 +23,4 @@ A student is flagged **At Risk** on the Dashboard when:
 - Average test/exam mark is below **50%**
 
 ## Data Storage
-All data is saved to **localStorage** in your browser — no server needed.
+All data is saved to **localStorage** in your browser no server needed.
