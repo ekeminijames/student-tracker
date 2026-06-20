@@ -15,7 +15,7 @@ interface AuthState {
     password: string,
     fullName: string,
     role: Role,
-  ) => Promise<{ error: string | null }>
+  ) => Promise<{ error: string | null; session: Session | null }>
   signOut: () => Promise<void>
 }
 
@@ -66,13 +66,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     },
 
     async signUp(email, password, fullName, role) {
-      if (!supabase) return { error: 'Backend not connected.' }
-      const { error } = await supabase.auth.signUp({
+      if (!supabase) return { error: 'Backend not connected.', session: null }
+      const { data, error } = await supabase.auth.signUp({
         email,
         password,
         options: { data: { full_name: fullName, role } },
       })
-      return { error: error?.message ?? null }
+      return { error: error?.message ?? null, session: data.session }
     },
 
     async signOut() {

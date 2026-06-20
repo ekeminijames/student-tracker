@@ -42,9 +42,10 @@ export default function Login() {
         return
       }
       setBusy(true)
-      const { error } = await signUp(email, password, fullName, role)
+      const { error, session } = await signUp(email, password, fullName, role)
       setBusy(false)
       if (error) setError(error)
+      else if (session) navigate('/', { replace: true })
       else setNotice('Account created. Check your email to confirm, then sign in.')
     }
   }
