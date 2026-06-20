@@ -3,47 +3,50 @@
 _Living document. Updated at each checkpoint._
 
 ## Where we are
-**Day 1 / Tier 0 — Foundation (skeleton in place, not yet running live).**
+**Day 1 / Tier 0 — Foundation: COMPLETE and running live.** ✅
 
-The repo has been restructured into the planned monorepo and the app shell + auth
-code are built. Nothing runs end-to-end yet because the external accounts (Supabase
-etc.) don't exist — see "Blocked on accounts" below.
+The app is deployed on Vercel, connected to a live Supabase project, and auth works
+end-to-end (sign up → role-based dashboard) both locally and in production.
 
 ## Done
-- Monorepo restructure: `apps/web`, `packages/shared`, `supabase/`, `.github/workflows`, `docs/handoff`.
-- `@emi/shared` package: roles, user types, zod validation schemas (single source of truth).
+- Monorepo: `apps/web`, `packages/shared`, `supabase/`, `.github/workflows`, `docs/handoff`.
+- `@emi/shared`: roles, user types, zod validation (single source of truth).
 - TypeScript wired into `apps/web` (incremental — existing JSX still compiles).
-- Supabase client wrapper that degrades gracefully when unconfigured.
-- Auth: `AuthProvider`, `useAuth`, `ProtectedRoute`, sign in / sign up / sign out.
-- Role-based routing: student / mentor / admin·superadmin land on their own dashboard.
-- Branded **"Backend not connected yet"** screen so the app is never broken pre-accounts.
-- Migration `0001_init_users_roles.sql`: `user_role` enum, `public.users`, auto-provision
-  trigger from `auth.users`, and Row-Level Security (own-row read; admins read all).
+- Supabase Auth: sign in / sign up / sign out; signup logs in immediately when email
+  confirmation is off.
+- Role-based routing + route guard: student / mentor / admin·superadmin dashboards.
+- Branded "backend not connected" fallback for un-configured environments.
+- **Migration 0001 applied to the live Supabase project**: `user_role` enum, `public.users`,
+  auto-provision trigger from `auth.users`, RLS (own-row read; admins read all).
 - Sentry init (no-op until a DSN is provided).
 - GitHub Actions CI: install → typecheck → build.
+- **Deployed to Vercel** (monorepo root config), env vars set, Git reconnected after the
+  repo rename. Live signup + login verified.
 
-## Blocked on accounts (only a human can do these)
-Nothing live works until these exist and their keys are provided:
-1. **Supabase** project → `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY` into `apps/web/.env`.
-2. Hosting (**Vercel** per blueprint, or Railway — see open decision) for deploys.
-3. Sentry / Upstash come online in later tiers.
-
-To switch the app on locally: copy `apps/web/.env.example` → `apps/web/.env`, fill in the
-Supabase URL + anon key, restart.
+## Environment / accounts status
+- **Supabase** — live project connected. URL + publishable (anon) key in `apps/web/.env`
+  (local) and Vercel env vars (prod). `service_role` (secret) key NOT yet needed.
+- **Vercel** — connected to repo `Enlightenment-Mentorship-Institute-Student-Tracker`,
+  auto-deploys on push to `master`.
+- **Email confirmation is currently OFF** in Supabase for launch testing. Before real
+  production use, set up an SMTP / email provider and re-enable confirmation.
+- **Supabase Auth → URL Configuration**: set Site URL + Redirect URLs to the Vercel domain
+  (needed once password-reset / email flows are used).
+- **Sentry / Upstash (Redis, QStash)** — not set up yet; needed in later tiers.
 
 ## Open decisions for the architect
-1. **Hosting: Vercel (free, in the blueprint) vs Railway (~$5/mo).** What would Railway host,
-   given the backend is Supabase? Needs a call before deploy wiring.
-2. **Missing schema link:** there is no student↔course relationship in the blueprint. An
-   `enrollments` table (or a cohort→course rule) is needed before Tier 2.
-3. **Offline exams:** should CBT work fully offline (integrity trade-offs), or online-only
-   for high-stakes assessments? Affects Tier 3b scope and the Day 7 checkpoint.
+1. **Hosting:** currently on **Vercel (free) and working**. Blueprint mentioned Railway
+   (~$5/mo) — only worth switching if a separate always-on backend is added later.
+2. **Missing schema link:** no student↔course relationship. An `enrollments` table (or a
+   cohort→course rule) is needed before Tier 2.
+3. **Offline exams:** full offline CBT vs online-only for high-stakes assessments. Affects
+   Tier 3b scope and the Day 7 checkpoint.
 
 ## Legacy (to salvage, not deleted)
-The original student-tracker pages (`src/pages/Dashboard.jsx`, `Attendance.jsx`, `Marks.jsx`,
-`Assignments.jsx`, `components/Navbar.jsx`, `context/AppContext.jsx`) remain in the repo,
-unrouted, for component salvage in later tiers.
+Original student-tracker pages (`src/pages/Dashboard.jsx`, `Attendance.jsx`, `Marks.jsx`,
+`Assignments.jsx`, `components/Navbar.jsx`, `context/AppContext.jsx`) remain unrouted for
+component salvage in later tiers.
 
 ## Next
-**Tier 1 (Day 2):** full RLS per role/table, `cohorts`/`semesters`, bulk CSV onboarding
-Edge Function, sidebar nav shell. Do not start until the Supabase project exists.
+**Tier 1 (Day 2):** full RLS per role/table, `cohorts`/`semesters` (+ `enrollments` pending
+the decision above), bulk CSV onboarding Edge Function, sidebar nav shell.
