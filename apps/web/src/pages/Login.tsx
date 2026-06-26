@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { ROLES, signInSchema, signUpSchema, type Role } from '@emi/shared'
+import { signInSchema, signUpSchema, type Role } from '@emi/shared'
 import { useAuth } from '../auth/useAuth'
 import Logo from '../components/Logo'
 
@@ -14,7 +14,8 @@ export default function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [fullName, setFullName] = useState('')
-  const [role, setRole] = useState<Role>('student')
+  // Self-signups are always students; the server enforces this regardless.
+  const role: Role = 'student'
   const [error, setError] = useState('')
   const [busy, setBusy] = useState(false)
   const [notice, setNotice] = useState('')
@@ -97,23 +98,6 @@ export default function Login() {
                 className="mt-1 w-full border border-white/15 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-white/30"
               />
             </div>
-
-            {mode === 'signup' && (
-              <div>
-                <label className="text-xs font-medium text-slate-400">Role</label>
-                <select
-                  value={role}
-                  onChange={(e) => setRole(e.target.value as Role)}
-                  className="mt-1 w-full border border-white/15 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-white/30 capitalize"
-                >
-                  {ROLES.map((r) => (
-                    <option key={r} value={r}>
-                      {r}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            )}
 
             {error && <p className="text-red-400 text-xs">{error}</p>}
             {notice && <p className="text-emerald-400 text-xs">{notice}</p>}
